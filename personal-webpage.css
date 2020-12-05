@@ -1,0 +1,11 @@
+body {
+    background: url(./img/kili_background.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.opaque-card{
+    background-color: rgba(230, 230, 230, 0.6)
+}
