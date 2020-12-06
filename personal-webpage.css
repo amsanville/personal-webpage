@@ -1,4 +1,11 @@
+/* Make all headers use Carrois Gothic */
+h1, h2, h3, h4, h5, h6{
+    font-family: 'Carrois Gothic', sans-serif;
+}
+
+/* Styling for background image */
 body {
+    font-family: 'IBM Plex Serif', serif;
     background: url(./img/kili_background.jpg) no-repeat center center fixed; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -6,10 +13,34 @@ body {
     background-size: cover;
 }
 
+/* Class for changing the text at the top of the page */
+.page-title{
+    font-size: 4em;
+    font-weight: bolder;
+    font-family: 'Carrois Gothic', sans-serif;
+}
+
+/* Styling card to overlay over background image to make the text pop*/
 .opaque-card{
+    padding: 20px;
+    margin-top: 20px;
     background-color: rgba(230, 230, 230, 0.6)
 }
 
+/* Resets row margin to remove negative margin */
+.row-padding-fix{
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+/* Style for embedded images copies the card style */
+.embedded-img{
+    border: 1px solid rgba(0,0,0,0.125);
+    border-radius:.25rem;
+    margin: 10px;
+}
+
+/* Button styling */
 .btn{
     border: none;
     color: white;
@@ -18,6 +49,7 @@ body {
     cursor: pointer;
 }
 
+/* Styling for LinkedIn buttons */
 .btn-linkedin {
     background-color: DodgerBlue;
 }
@@ -26,10 +58,34 @@ body {
     background-color: RoyalBlue;
 }
 
+/* Styling GitHub buttons*/
 .btn-github{
     background-color: gray;
 }
 
 .btn-github:hover {
     background-color: #505050;
+}
+
+/* Styling for blog posts */
+.blog-title{
+    text-align: left;
+    font-size: 2em;
+    font-weight: bolder;
+    font-family: 'Carrois Gothic', sans-serif;
+}
+
+.blog-date{
+    text-align: right;
+    font-size: 1.5em;
+    font-family: 'Carrois Gothic', sans-serif;
+}
+
+/* Styling for self rating my skills */
+.skills{
+    list-style-type: none;
+}
+
+.skill-star {
+    color: orange;
 }

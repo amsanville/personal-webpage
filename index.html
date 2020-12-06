@@ -3,16 +3,21 @@
 
 <head>
     <title>Welcome</title>
+    <!-- CDN link for bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"/>
+    <!-- CDN link for icons from Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"/>
+    <!-- CDN link for Carrois Gothic and IBM Plex Serif font for titles -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Carrois+Gothic&family=IBM+Plex+Serif:wght@100;400&display=swap" rel="stylesheet"> 
+    <!-- My style sheet -->
     <link rel="stylesheet" href="./personal-webpage.css" />
-
 </head>
 
 <body>
     <div class="container">
-        <h1>Welcome</h1>
+        <div class="page-title">Welcome</div>
     </div>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <div class="container">
@@ -39,8 +44,8 @@
         </div>
     </nav>
 
-    <div class="container card opaque-card" style="padding: 20px;margin-top: 20px;">
-        <div class="row" style="margin-right:0;margin-left:0;">
+    <div class="container card opaque-card">
+        <div class="row row-padding-fix">
             <p>My name is Andrew Sanville. Welcome to my website. A lot of it is currently under construction as I learn
                 more
                 about HTML, CSS, JavaScript, and Python as part of the <a href="https://kickstartcoding.com/">KickStart
@@ -50,10 +55,10 @@
             </p>
         </div>
         <div class="text-center">
-            <img src="./img/headshot_square_500x500.jpg" class="img-fluid" />
+            <img class="embedded-img" src="./img/headshot_square_500x500.jpg" class="img-fluid" />
         </div>
         
-        <div class="text-center" style="padding:10px;">
+        <div class="text-center">
             <a href="https://www.linkedin.com/in/andrew-sanville/" class="btn btn-linkedin" target="_blank">LinkedIn <i class="fab fa-linkedin"></i></a>
             <a href="https://github.com/amsanville" class="btn btn-github" target="_blank">GitHub <i class="fab fa-github"></i></a>
         </div>

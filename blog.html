@@ -3,14 +3,21 @@
 
 <head>
     <title>Blog</title>
+    <!-- CDN link for bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"/>
+    <!-- CDN link for icons from Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"/>
+    <!-- CDN link for Carrois Gothic and IBM Plex Serif font for titles -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Carrois+Gothic&family=IBM+Plex+Serif:wght@100;400&display=swap" rel="stylesheet"> 
+    <!-- My style sheet -->
     <link rel="stylesheet" href="./personal-webpage.css" />
 </head>
 
 <body>
     <div class="container">
-        <h1>Blog</h1>
+        <div class="page-title">Blog</div>
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
@@ -39,16 +46,16 @@
         </div>
     </nav>
 
-    <div class="container card opaque-card" style="padding: 20px;margin-top: 20px;">
+    <div class="container card opaque-card">
         <div class="row">
-            <div class="col-8" style="text-align: left;">
-                <h3>Making A Blog from Scratch</h3>
+            <div class="col-8">
+                <div class="blog-title">Making A Blog from Scratch</div>
             </div>
-            <div class="col-4" style="text-align: right;">
-                <h4>11/30/20</h3>
+            <div class="col-4">
+                <div class="blog-date">11/30/20</div>
             </div>
         </div>
-        <div class="row" style="padding: 20px;">
+        <div class="row row-padding-fix">
             <p>This is intended to be a blog page as part of my first assignment as part of the <a
                 href="https://kickstartcoding.com/">KickStart Coding bootcamp</a>. I'm still learning a bunch (I've done
             1
