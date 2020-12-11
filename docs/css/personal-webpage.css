@@ -6,7 +6,7 @@ h1, h2, h3, h4, h5, h6{
 /* Styling for background image */
 body {
     font-family: 'IBM Plex Serif', serif;
-    background: url(./img/kili_background.jpg) no-repeat center center fixed; 
+    background: url(../img/kili_background.jpg) no-repeat center center fixed; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
