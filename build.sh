@@ -1,3 +1,5 @@
+# Small change for git purposes.
+
 # Build index
 # Change the title
 sed 's/${title}/Welcome/g' ./templates/template.html > ./docs/index.html
