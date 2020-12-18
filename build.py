@@ -28,7 +28,9 @@ pages = [
 ]
 
 blog_pages = [
-    20201130
+    20201130,
+    20201213,
+    20201218
 ]
 
 # Global storage for the links and titles
@@ -93,14 +95,14 @@ def build_blog_archive():
     Builds the archive part of the blog
     '''
     archive = ''
-    for entry in blog_pages:
+    for entry in reversed(blog_pages):
         # Reconstruct the date
         day = entry % 100
         month = int(((entry % 10000) - day) / 100)
         year = int((entry - month * 100 - day) / 10000)
 
         # Create the string
-        archive += '<a href=./blog_post_' + str(entry) + '.html>' + str(month) + '/' + str(day) + '/' + str(year) + '</a>\n</li>\n'
+        archive += '<a href=./blog_post_' + str(entry) + '.html>' + str(month) + '/' + str(day) + '/' + str(year) + '</a></br>'
     return archive
 
 def build_blog():
