@@ -89,3 +89,8 @@ body {
 .skill-star {
     color: orange;
 }
+
+/* Blog */
+.archive {
+    text-align: center;
+}
