@@ -3,9 +3,7 @@ from jinja2 import Template
 
 '''
 TODO:
-- Make blog builder
-- Refactor blog/project_euler code -> Build page from a content_template
-- Update documentation
+- Update README
 - Command line argument input
 '''
 
@@ -15,8 +13,9 @@ TODO:
 
 def build_page_list():
     '''
-    TODO
-    Fills in the pages global variable based on the contents found in the content sub-directory. Creates all the information about the page for the Jinja 2 template in template.html.
+    Creates a pages and navbar variables for the Jinja 2 template in template.html, returning the dictionaries in a tuple.
+
+    Note, this function is specifically kepy separate from the build_pages() function in order to allow other functions to use it to gather the navbar information.
 
     Requires there to be content files:
     - index.html
@@ -74,50 +73,6 @@ def build_page_list():
         raise FileNotFoundError(f'Unable to find in {temp} in content sub-directory.')
     return (pages, navbar)
 
-def build_blog_list():
-    '''
-    TODO
-    '''
-    blog_location = glob.glob("./blog/*.html")
-    # Sort and reverse the list so the newest (i.e. largest date) is first
-    blog_location.sort()
-    blog_location.reverse()
-
-    # Process out the entries
-    blog_entries = []
-    archive = []
-    for blog_entry in blog_location:
-        # Slice out the identifier entry
-        blog_date = blog_entry[7:-5]
-        output_file = f'./docs/post_{blog_date}.html'
-        # Create an input and output file for the entry
-        blog_entries.append({
-                'input_file' : blog_entry,
-                'title' : 'Blog',
-                'output_file' : output_file,
-                })
-        
-        # Append the output file to the archive
-        archive.append({
-            'date' : f'{blog_date[4:6]}/{blog_date[6:]}/{blog_date[0:4]}',
-            'url' : f'./{output_file[7:]}',
-        })
-
-    # Update the blog content file so it contains the archive
-    # Open the template
-    with open('./templates/content_templates/blog_base.html') as fi:
-        template = Template(fi.read())
-    # Open the newest blog post
-    with open(blog_entries[0]['input_file']) as fi:
-        content = fi.read()
-    # Output it as the blog file
-    with open('./content/blog.html', 'w+') as fo:
-        fo.write(template.render({
-            'archive' : archive,
-            'content' : content,
-        }))
-    return (blog_entries, archive)
-
 def build_pages(pages, navbar):
     '''
     Builds the webpages based on the template.html template using Jinja 2.
@@ -145,53 +100,101 @@ def build_pages(pages, navbar):
         # Reset the active tab
         navbar[index]['active'] = ''
     
-
-def build_blog(blog_entries, archive, navbar):
+def build_from_content_template(inner_file, inner_dict, outer_file, outer_dict, output_file):
     '''
-    TODO
-    Builds the blog pages based on the blog_base.html template using Jinja 2
-    '''
-    # Open the blog page template
-    with open('./templates/content_templates/blog_base.html') as fi:
-        blog_template = Template(fi.read())
+    Uses secondary template to build the content of the primary template. Based on the pattern used in the blog posts and Project Euler stuff.
 
-    # Open the page template
-    template = Template(open('./templates/template.html').read())
-    
-    # Update the navbar
+    inner_file - the file location of the inner template file
+    inner_dict - the dictionary to be used in the jinja render statement
+    outer_file - the file location of the outer template file, template should use the content key value appropriately
+    outer_dict - the dictionary to be used in the jinja render statement, has inner content added to it as the content
+    output_file - the location of the output file
+    '''
+
+    # Read in the inner template
+    with open(inner_file) as fi:
+        inner_template = Template(fi.read())
+
+    # Read in the outer template
+    with open(outer_file) as fi:
+        outer_template = Template(fi.read())
+
+    # Render the dictionaries in successive order with jinja
+    outer_dict['content'] = inner_template.render(inner_dict)
+    result = outer_template.render(outer_dict)
+
+    # Write the result
+    with open(output_file, 'w+') as fo:
+        fo.write(result)
+
+def build_blog():
+    '''
+    Builds the entire blog, including updating the main blog page to the most recent blog entry
+    '''
+    # Get the navbar information and set blog to active
+    (_, navbar) = build_page_list()
     index_blog = next(index for index, navitem in enumerate(navbar) if navitem['title'].lower() == 'blog')
     navbar[index_blog]['active'] = 'active'
 
-    # Template each of the blog entries
+    blog_location = glob.glob("./blog/*.html")
+    # Sort and reverse the list so the newest (i.e. largest date) is first
+    blog_location.sort()
+    blog_location.reverse()
+
+    # Process out the entries
+    blog_entries = []
+    archive = []
+    for blog_entry in blog_location:
+        # Slice out the identifier entry
+        blog_date = blog_entry[7:-5]
+        output_file = f'./docs/post_{blog_date}.html'
+        # Create an input and output file for the entry
+        blog_entries.append({
+                'input_file' : blog_entry,
+                'title' : 'Blog',
+                'output_file' : output_file,
+                })
+        
+        # Append the output file to the archive
+        archive.append({
+            'date' : f'{blog_date[4:6]}/{blog_date[6:]}/{blog_date[0:4]}',
+            'url' : f'./{output_file[7:]}',
+        })
+
+    # Gather the blog templates and jinja dicts updating the blog splash page
+    inner_file = './templates/content_templates/blog_base.html'
+    inner_dict = {
+        'archive' : archive,
+    }
+    with open(blog_entries[0]['input_file']) as fi:
+            inner_dict['content'] = fi.read()
+    outer_file = './templates/template.html'
+    outer_dict = {
+        'title' : 'Blog',
+        'navbar' : navbar
+    }
+    output_file = './docs/blog.html'
+    build_from_content_template(inner_file, inner_dict, outer_file, outer_dict, output_file)
+
+    # Build each other individual blog page
     for entry in blog_entries:
-        # Open the input file
+        # Update the content and write location
         with open(entry['input_file']) as fi:
-            content = fi.read()
+            inner_dict['content'] = fi.read()
+        output_file = entry['output_file']
 
-        # Put the archive and content into the blog page template
-        result = blog_template.render({
-            'archive' : archive,
-            'content' : content,
-        })
-
-        # Render the template
-        result = template.render({
-            'title' : 'Blog',
-            'navbar' : navbar,
-            'content' : result,
-        })
-
-        # Write the result
-        with open(entry['output_file'], 'w+') as fo:
-            fo.write(result)
+        # Build the page
+        build_from_content_template(inner_file, inner_dict, outer_file, outer_dict, output_file)
     
-    # Reset the navbar
-    navbar[index_blog]['active'] = ''
-
-def build_project_euler(navbar):
+def build_project_euler():
     '''
     Populates the list of Project Euler solutions based on what exists in the directories. Then updates the page linked to on the Fun page.
     '''
+    # Get the navbar information and set the fun tab to active
+    (_, navbar) = build_page_list()
+    index_fun = next(index for index, navitem in enumerate(navbar) if navitem['title'].lower() == 'fun')
+    navbar[index_fun]['active'] = 'active'
+
     # Get the pdf and python files
     pdfs = glob.glob('./docs/project_euler/*.pdf')
     pdfs.sort()
@@ -279,43 +282,26 @@ def build_project_euler(navbar):
 
             # Increment the PDF file index
             index_pdfs += 1
-    # Now that we have a list of all the PDFs and python files and which problems they go to, feed them to the Jinja content template
-    with open('./templates/content_templates/project_euler.html') as fi:
-        template_pe = Template(fi.read())
-    content_pe = template_pe.render({
-        'solutions' : solutions
-    })
 
-    # Feed this content to the page template
-    with open('./templates/template.html') as fi:
-        template = Template(fi.read())
-    
-    # Set the fun tab to active in the navbar
-    index_fun = next(index for index, navitem in enumerate(navbar) if navitem['title'].lower() == 'fun')
-    navbar[index_fun]['active'] = 'active'
-    
-    # Template
-    result = template.render({
-            'title' : 'Project Euler',
-            'navbar' : navbar,
-            'content' : content_pe,
-    })
+    # Gather all the information
+    inner_file = './templates/content_templates/project_euler.html'
+    inner_dict = {'solutions' : solutions}
+    outer_file = './templates/template.html'
+    outer_dict = {
+        'title' : 'Project Euler',
+        'navbar' : navbar,
+    }
+    output_file = './docs/project_euler.html'
 
-    # Reset the navbar
-    navbar[index_fun]['active'] = ''
-
-    # Write to a new HTML file
-    with open('./docs/project_euler.html', 'w+') as fo:
-        fo.write(result)
+    # Build
+    build_from_content_template(inner_file, inner_dict, outer_file, outer_dict, output_file)
 
 def build_all():
     # Gather all the content page information
     (pages, navbar) = build_page_list()
-    # Gather all the blog information and update the blog.html file
-    (blog_entries, archive) = build_blog_list()
     # Build the pages
     build_pages(pages, navbar)
     # Build the individual blog entries
-    build_blog(blog_entries, archive, navbar)
+    build_blog()
     # Create the list of blog entries
-    build_project_euler(navbar)
+    build_project_euler()
