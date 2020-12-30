@@ -1,56 +1,37 @@
-<div class="row">
+<div class="container card opaque-card">
+    <div class="row">
+        <div class="col-3">
+            Archive:
+            <div class="archive">
+                
+                    <a href="./post_20201218.html">12/18/2020</a>
+                
+                    <a href="./post_20201213.html">12/13/2020</a>
+                
+                    <a href="./post_20201130.html">11/30/2020</a>
+                
+            </div>
+        </div>
+        <div class="col">
+            <div class="row">
     <div class="col-8">
-        <div class="blog-title">Making A Blog from Scratch</div>
+        <div class="blog-title">Temporary Blog Page Server</div>
     </div>
     <div class="col-4">
-        <div class="blog-date">11/30/20</div>
+        <div class="blog-date">12/18/20</div>
     </div>
 </div>
 <div class="row row-padding-fix">
-    <p>This is intended to be a blog page as part of my first assignment as part of the <a
-            href="https://kickstartcoding.com/">KickStart Coding bootcamp</a>. I'm still learning a bunch (I've
-        done
-        1
-        of 48 lessons, hurray!) and so everything that looks good on this website is from templates.</p>
+    <p>Well, I guess I did it. I made a blog page populator (see <a href="./post_20201130.html">this post</a>). I wrote a python script that populates the main blog splash page with my most recent post. Also made it auto-construct an archive (seen to the left). The idea is that every time I write a blog post, I can update my page by adding the post to a list of all posts and then a python script will update the site to reflect the changes. So hurray!</p>
 
-    <p>Anyway, in my heart and soul, I'm an algorithms/backend guy and thinking about writing a blog, makes me
-        want
-        to
-        build a blog. If I'm being honest, I have no business trying this right now as I've really just started
-        playing
-        around with HTML (let alone CSS, JavaScript, SQL, Python, and whatever else I'll need). Based on <a
-            href="https://softwareengineering.stackexchange.com/questions/335925/do-i-store-blog-posts-in-a-database-and-how-do-i-continue-to-make-posts">this
-            post</a> on Stack Exchange, it seems a common way to do the backend is with something called a
-        Content
-        Management System. The idea is that an SQL database stores a bunch of blog posts and content as text and
-        feeds
-        and then the CMS feeds it to the website in the correct place. I'm actually pretty interested in
-        learning
-        how
-        exactly this works and attempting to implement something like this myself.</p>
+    <p>The way the script works is that it uses the date of the post as a key for each post. Since I do not see myself writing multiple posts per date, I can use it as a unique number. Also, since dates are sequential, I can easily sort the blog posts chronologically. The idea is that the content of each post is a file named "YYYYMMDD.html". This can then be fed into a template by Python. The archive is populated from a sorted list of all such posts with the most recent post being the one that shows up on the "Blog" link in the navbar. </p>
+        
+    <p>The next new features I would like to implement are drop down menus in the archive. Right now, since there are like three posts (this being the third), it's pretty easy to scroll through and see all the posts. However, I would like to organize them by year and then month, with little arrows that you click to reveal all the posts.</p>
 
-    <p>As an easy bad first solution, I imagine I could just make an html file for each blog post and store it
-        along
-        with the contents of this website, pulling it in and putting it in the proper place. I could also just
-        treat
-        it
-        like a string in a text file and just concatenate it into the proper place in the webpage. I honestly
-        don't
-        know
-        if that's even possible, but I'm still learning so I guesss I will find out. A more advanced solution
-        would
-        let
-        me create a formatted article in my favorite word processor and store it in more blog friendly way. I
-        know,
-        for
-        example, that Microsoft Word let's you freely create HTML files out of word documents. I will also have
-        to
-        figure out hosting all of this stuff... seems like a lack of knowledge problem that will be solved as I
-        learn
-        more.</p>
-
-    <p>Seeing as I know nothing about constructing dynamic webpages nor do I know anything about SQL, I'm
-        probably
-        going
-        to wait on making something more complicated than raw content in HTML. Hurray for static webpages.</p>
+    <p>Another layer of organization that might be good is topic. "Last Podcast on the Left", a podcast about serial killers, cults, and the occult, actually has an organization structure that I <a href="://www.lastpodcastontheleft.com/#archive-section">reasonably like</a>. In order to do this piece of it, I would have to tag the posts with some set of tags. Then I could create a topics archive based on the tags.</p>
+    
+    <p>Right now, the blog is built from a list of dates, that are the same as the content files and then final pages. In addition to this integer date, I could store the tags as a list of strings. I then create a master list of strings that are all the unique topics, then under each topic the dated and titled posts are organized, putting the most recent at the top. Finally, to make the archive not too cumbersome to navigate, these would further be put under collapseable menus like the above. Food for thought once I learn how to do stuff like that.</p>
+</div>
+        </div>
+    </div>
 </div>

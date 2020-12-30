@@ -7,7 +7,7 @@
     </div>
 </div>
 <div class="row row-padding-fix">
-    <p>Well, I guess I did it. I made a blog page populator (see <a href="./20201130.html">this post</a>). I wrote a python script that populates the main blog splash page with my most recent post. Also made it auto-construct an archive (seen to the left). The idea is that every time I write a blog post, I can update my page by adding the post to a list of all posts and then a python script will update the site to reflect the changes. So hurray!</p>
+    <p>Well, I guess I did it. I made a blog page populator (see <a href="./post_20201130.html">this post</a>). I wrote a python script that populates the main blog splash page with my most recent post. Also made it auto-construct an archive (seen to the left). The idea is that every time I write a blog post, I can update my page by adding the post to a list of all posts and then a python script will update the site to reflect the changes. So hurray!</p>
 
     <p>The way the script works is that it uses the date of the post as a key for each post. Since I do not see myself writing multiple posts per date, I can use it as a unique number. Also, since dates are sequential, I can easily sort the blog posts chronologically. The idea is that the content of each post is a file named "YYYYMMDD.html". This can then be fed into a template by Python. The archive is populated from a sorted list of all such posts with the most recent post being the one that shows up on the "Blog" link in the navbar. </p>
         

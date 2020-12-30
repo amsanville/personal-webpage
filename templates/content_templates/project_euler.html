@@ -1,0 +1,26 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Problem Statement</th>
+            <th scope="col">Math Solution</th>
+            <th scope="col">Programming Solution</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for solution in solutions %}
+        <tr>
+            <th scope="row"><a href="https://projecteuler.net/problem={{solution.num}}">Problem {{solution.num}}</a></th>
+            {% if solution.pdf is defined %}
+            <th><a href="./project_euler/{{solution.pdf}}" download>{{solution.pdf}}</a></th>
+            {% else %}
+            <th>*</th>
+            {% endif %}
+            {% if solution.py is defined %}
+            <th><a href="./project_euler/{{solution.py}}" download>{{solution.py}}</a></th>
+            {% else %}
+            <th>*</th>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
