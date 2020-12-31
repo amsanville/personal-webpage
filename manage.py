@@ -25,7 +25,7 @@ def main():
         elif command == 'euler':
             utils.build_project_euler()
         elif command == 'new':
-            with open('new.html', 'w+') as fo:
+            with open('./content/new.html', 'w+') as fo:
                 fo.write('''
                     <h1>New Content!</h1>
 

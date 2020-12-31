@@ -1,15 +1,11 @@
-<div class="container card opaque-card">
-    <div class="row">
-        <div class="col-3">
-            Archive:
-            <div class="archive">
-                {% for entry in archive %}
-                    <a href="{{entry.url}}">{{entry.date}}</a>
-                {% endfor %}
-            </div>
-        </div>
-        <div class="col">
-            {{content}}
-        </div>
+<div class="row">
+    <div class="col-2 text-right">
+        <h5 class="text-left">Archive:</h5>
+        {% for entry in archive %}
+            <a href="{{entry.url}}">{{entry.date}}</a></br>
+        {% endfor %}
+    </div>
+    <div class="col">
+        {{content}}
     </div>
 </div>
